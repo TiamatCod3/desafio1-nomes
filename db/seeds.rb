@@ -19,6 +19,6 @@ csv.each do |row|
   student.phone = row['telefone']
   student.mail = row['email']
   student.uffmail = row['uffmail']
-  student.status = row['status']
+  student.active = (row['status']=="Ativo")
   student.save
 end

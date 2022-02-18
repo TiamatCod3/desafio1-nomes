@@ -1,5 +1,6 @@
 class Student < ApplicationRecord
   # validates :uffmail, uniqueness: true
+  attr_accessor :status
   def generate_mails
     names = name.split
     leg = "@id.uff.br"
@@ -22,6 +23,17 @@ class Student < ApplicationRecord
       end
       counter += 1
     end
-    mails
+    mails.to_a
   end
+
+  def self.search(search)
+    if search
+      student = self.where(register: search).first
+      student
+    else
+      nil
+    end
+  end
+
+
 end
