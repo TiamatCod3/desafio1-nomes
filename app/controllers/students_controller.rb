@@ -3,11 +3,17 @@ class StudentsController < ApplicationController
 
   # GET /students or /students.json
   def index
-    @students = Student.all
+    @student = Student.search(params[:search])
+    # @students = Student.all
   end
 
   # GET /students/1 or /students/1.json
   def show
+    
+  end
+
+  def search
+    @student = Student.search(params[:search])
   end
 
   # GET /students/new
@@ -37,11 +43,14 @@ class StudentsController < ApplicationController
   # PATCH/PUT /students/1 or /students/1.json
   def update
     respond_to do |format|
-      if @student.update(student_params)
-        format.html { redirect_to student_url(@student), notice: "Student was successfully updated." }
+      if @student.update(student_params) && @student.active
+        format.html { redirect_to student_url(@student), 
+          notice: "A criação de seu e-mail (#{@student.uffmail}) será feita nos próximos minutos.
+          Um SMS foi enviado para #{@student.phone} com a sua senha de acesso." }
         format.json { render :show, status: :ok, location: @student }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { redirect_to student_url(@student), 
+          notice: "Usuário inativo, favor entrar em contato com o STI" }
         format.json { render json: @student.errors, status: :unprocessable_entity }
       end
     end
@@ -65,6 +74,6 @@ class StudentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def student_params
-      params.require(:student).permit(:name, :register, :phone, :mail, :uffmail, :active)
+      params.require(:student).permit(:name, :register, :phone, :mail, :uffmail, :status, :search)
     end
 end
