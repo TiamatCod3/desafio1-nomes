@@ -1,14 +1,33 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Students</h1>
+<h1>Bem-vindo à UFF!</h1>
 
-<div id="students">
-  <% @students.each do |student| %>
-    <%= render student %>
-    <p>
-      <%= link_to "Show this student", student %>
-    </p>
+<h4>
+  Digite sua matrícula:
+</h4>
+
+<%= form_tag(students_path, method: :get) do %>
+  <%= text_field_tag(:search, params[:search]) %>
+  <%= submit_tag("Buscar") %>
+<% end %>
+
+<p>
+  <% if !@student.nil? %>
+  <%= @student.status %>
+  <%= @student.name.split[0] + ", por favor escolha uma das opções abaixo para o seu UFFMail:" %>
+  <!-- <%= form_tag(students_path(@student), method: "patch")%> -->
+  <%= form_with(model: @student, url: student_path(@student), method: "patch") %>
+    <!-- <%= form_with model: @student do |form| %> -->
+      <%= form.select :uffmail, @student.generate_mails %>
+      <!-- <%= form_tag(students_path(@student), method: :put) do %> -->
+      <!-- <%= text_field_tag(:search, params[:search]) %> -->
+      <%= submit_tag("Salvar") %>
+      <!-- <% end %>  -->
+  <!-- <% end %> -->
+
   <% end %>
-</div>
+</p>
 
-<%= link_to "New student", new_student_path %>
+
+
+
