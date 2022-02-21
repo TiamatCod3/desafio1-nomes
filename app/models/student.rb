@@ -1,6 +1,7 @@
 class Student < ApplicationRecord
-  # validates :uffmail, uniqueness: true
-  attr_accessor :status
+  validates :uffmail, uniqueness: true, on: :update
+  validates :active, acceptance: true, on: :update
+  
   def generate_mails
     names = name.split
     leg = "@id.uff.br"
@@ -28,12 +29,10 @@ class Student < ApplicationRecord
 
   def self.search(search)
     if search
-      student = self.where(register: search).first
-      student
+      self.where(register: search).first
     else
       nil
     end
   end
-
 
 end

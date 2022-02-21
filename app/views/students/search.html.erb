@@ -1,0 +1,37 @@
+
+<h1>Bem-vindo à UFF!</h1>
+
+<h4>
+  Digite sua matrícula:
+</h4>
+<div class="form-content">
+  <%= form_tag(students_path(@student), method: :get) do %>
+  <%= text_field_tag(:search, params[:search]) %>
+  <%= submit_tag("Buscar") %>
+  <% end %>
+</div>
+
+<div class="form-content">
+  
+  <% if !@student.nil? %>
+  <% if @student.active %>
+  <!-- <p class="alert-warning"><%= notice %></p> -->
+      <%= @student.name.split[0] + ", por favor escolha uma das opções abaixo para o seu UFFMail:" %>
+      <%= form_with model: @student do |form| %>
+      <%= form.select :uffmail, @student.generate_mails %>
+      <%= form_tag(students_path(@student), method: :put) do %>
+      <%= submit_tag("Salvar") %>
+      <% end %> 
+      <% end %>
+    <% else %>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <%= @student.name.split[0] + ", sua matrícula está inativa, favor entrar em contato com o STI" %>
+        <a href="atendimento@id.uff.br" class="alert-link">atendimento@id.uff.br</a>.
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+
+
+
