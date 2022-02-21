@@ -1,5 +1,6 @@
 module MailHelper
   class Mail
+    
     def self.generate_mails(klass, targetfield, fullname, max ,domain)
       
       suggestion = String.new
@@ -24,7 +25,9 @@ module MailHelper
         counter += 1
       end
       mails.to_a
-    end  
+    end 
+
   end
+
 end
 
