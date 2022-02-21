@@ -6,6 +6,7 @@ class CreateStudents < ActiveRecord::Migration[7.0]
       t.string :phone
       t.string :mail
       t.string :uffmail
+      t.boolean :active
 
       t.timestamps
     end

@@ -14,6 +14,7 @@ class StudentsTest < ApplicationSystemTestCase
     visit students_url
     click_on "New student"
 
+    check "Active" if @student.active
     fill_in "Mail", with: @student.mail
     fill_in "Name", with: @student.name
     fill_in "Phone", with: @student.phone
@@ -29,6 +30,7 @@ class StudentsTest < ApplicationSystemTestCase
     visit student_url(@student)
     click_on "Edit this student", match: :first
 
+    check "Active" if @student.active
     fill_in "Mail", with: @student.mail
     fill_in "Name", with: @student.name
     fill_in "Phone", with: @student.phone
