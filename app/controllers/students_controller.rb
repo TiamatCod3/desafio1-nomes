@@ -9,7 +9,6 @@ class StudentsController < ApplicationController
 
   # GET /students/1 or /students/1.json
   def show
-    
   end
 
   def search
@@ -23,6 +22,7 @@ class StudentsController < ApplicationController
 
   # GET /students/1/edit
   def edit
+
   end
 
   # POST /students or /students.json
@@ -43,7 +43,7 @@ class StudentsController < ApplicationController
   # PATCH/PUT /students/1 or /students/1.json
   def update
     respond_to do |format|
-      if @student.update(student_params) && @student.active
+      if @student.update(student_params)
         format.html { redirect_to student_url(@student), 
           notice: "A criação de seu e-mail (#{@student.uffmail}) será feita nos próximos minutos.
           Um SMS foi enviado para #{@student.phone} com a sua senha de acesso." }
